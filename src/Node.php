@@ -2,6 +2,8 @@
 
 namespace ShipMonk;
 
+use ShipMonk\Interfaces\Comparable;
+
 /** @psalm-suppress UnusedProperty */
 class Node implements Comparable
 {
@@ -28,6 +30,7 @@ class Node implements Comparable
             }
         }
 
+        //case insensitive comparasion of strings
         /** @psalm-suppress InvalidScalarArgument */
         return strcasecmp($this->value, $other->value);
     }

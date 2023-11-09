@@ -12,6 +12,18 @@ use ShipMonk\SortedLinkedList;
  */
 class SortedLinkedListTest extends TestCase
 {
+    private function createIntSortedLinkedList(): SortedLinkedList
+    {
+        $sortedLL = new SortedLinkedList('integer');
+        $sortedLL->insert(222);
+        $sortedLL->insert(111);
+        $sortedLL->insert(444);
+        $sortedLL->insert(333);
+        $sortedLL->insert(555);
+
+        return $sortedLL;
+    }
+
     public function testListTypeInvalid(): void
     {
         self::expectExceptionMessage('Incorect list type. Only integer & string possible');
@@ -81,27 +93,26 @@ class SortedLinkedListTest extends TestCase
         $sortedLL->insert(111);
         $sortedLL->insert(222);
         $sortedLL->insert(0);
-        $sortedLL->insert(555);
+        $sortedLL->insert(55555);
         $sortedLL->insert(444);
         $sortedLL->insert(-10);
         $sortedLL->insert(111);
-        self::assertEquals([-10, 0, 111, 111, 222, 333, 444, 555, 666], $sortedLL->toArray());
+        self::assertEquals([-10, 0, 111, 111, 222, 333, 444, 666, 55555], $sortedLL->toArray());
     }
 
     public function testInsertStringListAsc(): void
     {
         $sortedLL = new SortedLinkedList('string');
 
-        $sortedLL->insert('abaa');
         $sortedLL->insert('aaaa');
-        $sortedLL->insert('Aaaa');
+        $sortedLL->insert('baaa');
+        $sortedLL->insert('Baaa');
+        $sortedLL->insert('aąaa');
+        $sortedLL->insert('aaaaaa');
         $sortedLL->insert('*aaa');
-        $sortedLL->insert('aaca');
-        $sortedLL->insert('abca');
-        $sortedLL->insert('aaab');
-        $sortedLL->insert('Baca');
-
-        self::assertEquals(['*aaa', 'Aaaa', 'Baca', 'aaaa', 'aaab', 'aaca', 'abaa', 'abca'], $sortedLL->toArray());
+        $sortedLL->insert('ęałaa');
+        $sortedLL->insert('eąłaa');
+        self::assertEquals(['*aaa', 'aaaa', 'aaaaaa', 'aąaa', 'baaa', 'Baaa', 'eąłaa', 'ęałaa'], $sortedLL->toArray());
     }
 
     public function testInsertStringListDesc(): void
@@ -129,18 +140,6 @@ class SortedLinkedListTest extends TestCase
         $sortedLL->insert(444);
         $sortedLL->insert(111);
         self::assertEquals([666, 555, 444, 333, 222, 111, 111], $sortedLL->toArray());
-    }
-
-    private function createIntSortedLinkedList(): SortedLinkedList
-    {
-        $sortedLL = new SortedLinkedList('integer');
-        $sortedLL->insert(222);
-        $sortedLL->insert(111);
-        $sortedLL->insert(444);
-        $sortedLL->insert(333);
-        $sortedLL->insert(555);
-
-        return $sortedLL;
     }
 
     public function testCountEmptyIntList(): void

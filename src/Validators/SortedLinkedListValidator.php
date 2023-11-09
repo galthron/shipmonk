@@ -1,7 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace ShipMonk;
+namespace ShipMonk\Validators;
+
+use ShipMonk\Exceptions\ValidationException;
+use ShipMonk\SortedLinkedList;
 
 class SortedLinkedListValidator
 {

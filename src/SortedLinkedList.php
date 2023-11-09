@@ -4,7 +4,13 @@ declare(strict_types=1);
 
 namespace ShipMonk;
 
-class SortedLinkedList implements \Countable
+use ShipMonk\Interfaces\AccesibleList;
+use ShipMonk\Interfaces\InsertableList;
+use ShipMonk\Interfaces\IterableList;
+use ShipMonk\Interfaces\RemovableList;
+use ShipMonk\Validators\SortedLinkedListValidator;
+
+class SortedLinkedList implements \Countable, InsertableList, RemovableList, IterableList, AccesibleList
 {
     const ORDER_ASC = 'asc';
     const ORDER_DESC = 'desc';
@@ -131,7 +137,7 @@ class SortedLinkedList implements \Countable
      * @param Node $newNode
      * @return void
      */
-    private function insertSorted(Node $newNode)
+    private function insertSorted(Node $newNode): void
     {
         if($this->isEmpty()) {
             $this->init($newNode);
@@ -164,7 +170,6 @@ class SortedLinkedList implements \Countable
             return $newNode->compare($nextNode) >= 0 && $newNode->compare($node) < 0;
         }
     }
-
 
     /**
      * @param Node $node
@@ -380,4 +385,6 @@ class SortedLinkedList implements \Countable
     {
         return $this->head === null ? true : false;
     }
+
+
 }
